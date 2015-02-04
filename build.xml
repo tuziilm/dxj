@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="rommer" default="dist" basedir=".">
+<project name="dxj" default="dist" basedir=".">
 	<property name="src" location="src" />
 	<property name="dist" location="dist" />
 	<property name="build" location="build" />
@@ -8,7 +8,7 @@
 		<fileset dir="WebContent/WEB-INF/lib">
 			<include name="*.jar" />
 		</fileset>
-		<fileset dir="${user.home}/.rommer/lib">
+		<fileset dir="${user.home}/.dxj/lib">
 			<include name="*.jar" />
 		</fileset>
 		<pathelement location="${build}/WEB-INF/classes" />
@@ -42,7 +42,7 @@
 			</fileset>
 		</copy>
 		<copy todir="${build}/WEB-INF/classes" overwrite="true">
-			<fileset dir="${user.home}/.rommer">
+			<fileset dir="${user.home}/.dxj">
 				<include name="*.properties"/>
 				<include name="*.xml"/>
                 <include name="**/*.xlsx"/>

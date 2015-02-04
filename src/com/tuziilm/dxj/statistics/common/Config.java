@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public final class Config {
 	public final static String FILE_NAME_LOG="statistic";
-	public final static String CONFIG_FILE=".rommer/config.properties";
+	public final static String CONFIG_FILE=".dxj/config.properties";
 	public final static String SEP="\u0001";
 	public final static boolean isWindows=System.getProperty("os.name").toLowerCase().indexOf("win")!=-1;
 

@@ -47,7 +47,7 @@ public class SystemController {
 	}
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(){
-		return "/system/login";
+ 		return "/system/login";
 	}
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
 	public @ResponseBody String login(@RequestParam("username") String username, @RequestParam("passwd") String passwd, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException{

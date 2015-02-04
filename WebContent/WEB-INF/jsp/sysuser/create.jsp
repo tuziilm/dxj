@@ -45,7 +45,7 @@
 					  </div>
 					</div>
 					<script type="text/javascript">
-						document.getElementById("sysUserType_sel").value='${rommer:defVal(form.sysUserType,1)}';
+						document.getElementById("sysUserType_sel").value='${dxj:defVal(form.sysUserType,1)}';
 					</script>
 				</c:if>
 				<div class="control-group required-field">

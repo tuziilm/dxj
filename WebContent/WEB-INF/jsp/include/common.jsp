@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="rommer" uri="http://rommer.zhanghui.com/jsp/jstl/functions" %>
+<%@ taglib prefix="dxj" uri="http://dxj.tuziilm.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <c:set var="basePath" value="${pageContext.request.contextPath}/"/>

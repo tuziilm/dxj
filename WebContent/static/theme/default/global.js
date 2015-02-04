@@ -2,6 +2,7 @@
 function checkLogin() {
 	var username = $('[name="username"]').val();
 	var passwd = $('[name="passwd"]').val();
+	alert(username+"##"+passwd);
 	if (username == "") {
 		$("#errors").html("您还没有输入用户名!");
 		return false;
