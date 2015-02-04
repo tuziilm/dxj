@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   <display-name>dxj</display-name>
-  <description>zhanghui-rommer</description>
+  <description>tuziilm-dxj</description>
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/static/*</url-pattern>
@@ -52,7 +52,7 @@
   </filter-mapping>
   <filter>
     <filter-name>CaseInsensitiveParamFilter</filter-name>
-    <filter-class>com.zhanghui.rommer.mvc.filter.CaseInsensitiveParamFilter</filter-class>
+    <filter-class>com.tuziilm.dxj.mvc.filter.CaseInsensitiveParamFilter</filter-class>
     <init-param>
       <param-name>prefixMapping</param-name>
       <param-value>/callback/timwe-mo /callback/timwe-mt /callback/mk-mt-my /callback/mk-mo-my /callback/mcom-mt.jsp /callback/mcom-mo.jsp</param-value>

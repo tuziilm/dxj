@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
 <%@include file="../../include/common.jsp"%>
-<%@ page import="com.zhanghui.rommer.common.LoginContext" %>
-<%@ page import="com.zhanghui.rommer.common.SystemUserType" %>
+<%@ page import="com.tuziilm.dxj.common.LoginContext" %>
+<%@ page import="com.tuziilm.dxj.common.SystemUserType" %>
 <%@ page import="org.springframework.web.context.WebApplicationContext" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%

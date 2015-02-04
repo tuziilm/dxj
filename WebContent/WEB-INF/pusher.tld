@@ -16,7 +16,7 @@
       check the login user is admin or not
     </description>
     <name>isAdmin</name>
-    <function-class>com.zhanghui.rommer.common.LoginContext</function-class>
+    <function-class>com.tuziilm.dxj.common.LoginContext</function-class>
     <function-signature>boolean isAdmin()</function-signature>
   </function>
   <function>
@@ -24,7 +24,7 @@
       LoginContext.getUid
     </description>
     <name>uid</name>
-    <function-class>com.zhanghui.rommer.common.LoginContext</function-class>
+    <function-class>com.tuziilm.dxj.common.LoginContext</function-class>
     <function-signature>java.lang.Integer getUid()</function-signature>
   </function>
   <function>
@@ -32,7 +32,7 @@
       LoginContext.getUsername
     </description>
     <name>username</name>
-    <function-class>com.zhanghui.rommer.common.LoginContext</function-class>
+    <function-class>com.tuziilm.dxj.common.LoginContext</function-class>
     <function-signature>java.lang.String getUsername()</function-signature>
   </function>
     <function>
@@ -40,7 +40,7 @@
             StringUtils.urlEncode
         </description>
         <name>urlEncode</name>
-        <function-class>com.zhanghui.rommer.common.StringUtils</function-class>
+        <function-class>com.tuziilm.dxj.common.StringUtils</function-class>
         <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
     </function>
   <function>
@@ -48,7 +48,7 @@
       StringUtils.defVal
     </description>
     <name>defVal</name>
-    <function-class>com.zhanghui.rommer.common.StringUtils</function-class>
+    <function-class>com.tuziilm.dxj.common.StringUtils</function-class>
     <function-signature>java.lang.Object defVal(java.lang.Object, java.lang.Object)</function-signature>
   </function>
   <function>
@@ -56,7 +56,7 @@
       DateUtils.nowDateString
     </description>
     <name>nowDateString</name>
-    <function-class>com.zhanghui.rommer.common.DateUtils</function-class>
+    <function-class>com.tuziilm.dxj.common.DateUtils</function-class>
     <function-signature>java.lang.String nowDateString(java.lang.String)</function-signature>
   </function>
   <function>
@@ -64,7 +64,7 @@
       DateUtils.yesterdayString
     </description>
     <name>yesterdayString</name>
-    <function-class>com.zhanghui.rommer.common.DateUtils</function-class>
+    <function-class>com.tuziilm.dxj.common.DateUtils</function-class>
     <function-signature>java.lang.String yesterdayString(java.lang.String)</function-signature>
   </function>
     <function>
@@ -72,7 +72,7 @@
             DateUtils.dateStringAboutNow
         </description>
         <name>dateStringAboutNow</name>
-        <function-class>com.zhanghui.rommer.common.DateUtils</function-class>
+        <function-class>com.tuziilm.dxj.common.DateUtils</function-class>
         <function-signature>java.lang.String dateStringAboutNow(java.lang.String, int)</function-signature>
     </function>
   <function>
@@ -80,23 +80,23 @@
       StringUtils.toGoogleChartData
     </description>
     <name>toGoogleChartData</name>
-    <function-class>com.zhanghui.rommer.common.StringUtils</function-class>
+    <function-class>com.tuziilm.dxj.common.StringUtils</function-class>
     <function-signature>java.lang.String toGoogleChartData(java.lang.String[][])</function-signature>
   </function>
   <function>
     <description>
-        com.zhanghui.rommer.common.LogModule.values
+        com.tuziilm.dxj.common.LogModule.values
     </description>
     <name>logModules</name>
-    <function-class>com.zhanghui.rommer.common.LogModule</function-class>
-    <function-signature>com.zhanghui.rommer.common.LogModule[] values()</function-signature>
+    <function-class>com.tuziilm.dxj.common.LogModule</function-class>
+    <function-signature>com.tuziilm.dxj.common.LogModule[] values()</function-signature>
   </function>
     <function>
         <description>
             Collections.contains
         </description>
         <name>contains</name>
-        <function-class>com.zhanghui.rommer.common.Collections</function-class>
+        <function-class>com.tuziilm.dxj.common.Collections</function-class>
         <function-signature>boolean contains(java.util.Collection,java.lang.Object)</function-signature>
     </function>
 </taglib>

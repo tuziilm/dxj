@@ -1,5 +1,5 @@
 <%@ page import="com.google.common.base.Strings" %>
-<%@ page import="com.zhanghui.rommer.common.Config" %>
+<%@ page import="com.tuziilm.dxj.common.Config" %>
 <%@ page import="com.google.common.base.Joiner" %>
 <%@ page contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/theme/default/ctrl_header.jsp"%>

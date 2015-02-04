@@ -25,9 +25,9 @@
         </encoder>
     </appender>
 
-	<logger name="com.zhanghui.rommer" level="INFO" />
+	<logger name="com.tuziilm.dxj" level="INFO" />
 
-	<logger name="com.zhanghui.rommer.common.LogStatistics" level="INFO"
+	<logger name="com.tuziilm.dxj.common.LogStatistics" level="INFO"
 		additivity="false">
 		<appender-ref ref="STATISTIC_FILE" />
 	</logger>
