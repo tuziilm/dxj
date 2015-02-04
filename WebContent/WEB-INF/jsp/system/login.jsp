@@ -4,20 +4,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>后台系统登录</title>
+    <title>吾爱大小姐-会员登录</title>
     <link rel="icon" type="image/png" href="${basePath}static/common/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="${basePath}static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="${basePath}static/theme/${_theme}/global.css" rel="stylesheet">
     <link href="${basePath}static/theme/${_theme}/style.css" rel="stylesheet">
     <link href="${basePath}static/theme/${_theme}/body.css" rel="stylesheet">
-    <!--
     <style type="text/css">
 	  #errors{
 	  	padding-left: 0;
 	  }
     </style>
-      -->
     <link href="${basePath}static/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -44,7 +42,7 @@
 				<!-- <input type="submit" value="Log in" /> -->
 				<input type="submit" value="登录" class="btn btn-primary" id="js-btn-login"/>
 				<a href="#">忘记密码?</a>
-				<a href="#">Register</a>
+				<a href="${basePath}register">加入我们</a>
 			</div>
 		</form><!-- form -->
 		 <div class="button">
