@@ -5,10 +5,14 @@ import com.tuziilm.dxj.common.SystemUserType;
 
 /**
  * 系统用户表
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@gmail.com">tuziilm</a>
  *
  */
 public class SysUser  extends RemarkId {
+	/** 邮件*/
+	private String email;
+	/** 邮件验证码*/
+	private String emailVaildateCode;
     /** 账号*/
     private String username;
     /** 密码*/
@@ -63,4 +67,21 @@ public class SysUser  extends RemarkId {
     public void setPrivilege(String privilege) {
         this.privilege = privilege == null ? null : privilege.trim();
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmailVaildateCode() {
+		return emailVaildateCode;
+	}
+
+	public void setEmailVaildateCode(String emailVaildateCode) {
+		this.emailVaildateCode = emailVaildateCode;
+	}
+    
 }

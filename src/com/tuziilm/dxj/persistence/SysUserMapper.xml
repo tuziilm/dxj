@@ -3,6 +3,7 @@
 <mapper namespace="com.tuziilm.dxj.persistence.SysUserMapper" >
     <resultMap id="BaseResultMap" type="com.tuziilm.dxj.domain.SysUser" >
         <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
         <result column="username" property="username" jdbcType="VARCHAR" />
         <result column="passwd" property="passwd" jdbcType="VARCHAR" />
         <result column="sys_user_type" property="sysUserType" jdbcType="TINYINT" />
@@ -26,15 +27,15 @@
         <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into sys_user (username, passwd, sys_user_type,
+        insert into sys_user (email, username, passwd, sys_user_type,
         status, privilege, remark,
         gmt_create, gmt_modified)
-        values (#{username,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{sysUserType,jdbcType=TINYINT},
+        values (#{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{sysUserType,jdbcType=TINYINT},
         #{status,jdbcType=TINYINT}, #{privilege,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, now(), now())
     </insert>
 
     <sql id="Base_Column_List" >
-        id, username, passwd, sys_user_type, status, privilege, remark, gmt_create, gmt_modified
+        id, email, username, passwd, sys_user_type, status, privilege, remark, gmt_create, gmt_modified
     </sql>
 
     <select id="selectAll" resultMap="BaseResultMap" >
@@ -65,10 +66,18 @@
         <include refid="Base_Column_List" />
         from sys_user where username=#{username}
     </select>
+    <select id="getByEmail" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from sys_user where email=#{email}
+    </select>
 
     <update id="updateByIdSelective" parameterType="com.tuziilm.dxj.domain.SysUser" >
         update sys_user
-        <set >
+        <set>
+        	<if test="email != null" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
             <if test="username != null" >
                 username = #{username,jdbcType=VARCHAR},
             </if>

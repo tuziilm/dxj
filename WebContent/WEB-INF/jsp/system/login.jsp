@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>吾爱大小姐-会员登录</title>
+    <title>吾爱破解-会员登录</title>
     <link rel="icon" type="image/png" href="${basePath}static/common/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="${basePath}static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 			<h2>会员登录</h2>
 			<div id="errors"></div>
 			<div>
-				<input type="text" placeholder="邮箱" id="username" name="username"/>
+				<input type="text" placeholder="用户名" id="username" name="username"/>
 			</div>
 			<div>
 				<input type="password" placeholder="密码" id="passwd" name="passwd"/>
@@ -42,12 +42,12 @@
 				<!-- <input type="submit" value="Log in" /> -->
 				<input type="submit" value="登录" class="btn btn-primary" id="js-btn-login"/>
 				<a href="#">忘记密码?</a>
-				<a href="${basePath}register">加入我们</a>
+				<input type="button" value="注册" onclick="javaScript:toRegister();" class="btn btn-primary" id="js-btn-login"/>
 			</div>
 		</form><!-- form -->
 		 <div class="button">
 			<span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>
-			<a href="#">下载网盘</a>	
+			<a href="#">首页</a>	
 		</div> <!-- button -->
 	</section><!-- content -->
 </div>
@@ -57,6 +57,10 @@
 </div>
 <script type="text/javascript" src="${basePath}static/jquery/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="${basePath}static/theme/${_theme}/global.js"></script>
-
+<script type="text/javascript">
+	function toRegister(){
+		window.location.replace("/register");
+	}
+</script>
   </body>
 </html>

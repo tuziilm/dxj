@@ -23,4 +23,7 @@ public class SysUserService  extends SimpleCacheSupportService<SysUser> {
 	public SysUser getByUsername(String username) {
 		return sysUserMapper.getByUsername(username);
 	}
+	public SysUser getByEmail(String email){
+		return sysUserMapper.getByEmail(email);
+	}
 }

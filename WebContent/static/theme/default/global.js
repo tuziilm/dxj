@@ -2,7 +2,6 @@
 function checkLogin() {
 	var username = $('[name="username"]').val();
 	var passwd = $('[name="passwd"]').val();
-	alert(username+"##"+passwd);
 	if (username == "") {
 		$("#errors").html("您还没有输入用户名!");
 		return false;
@@ -20,9 +19,66 @@ function checkLogin() {
 		}
 	});
 	request.done(function(msg) {
+		alert(msg);
 		var result=eval(msg);
 		if(result.success){
 			location.href=location.href.substr(0,location.href.length-5);
+		}else{
+			$("#errors").html(result.msg);
+		}
+	});
+	request.fail(function(msg) {
+		$("#errors").html("服务器繁忙，请稍后再试!");
+	});
+	return false;
+}
+//for register
+function checkRegister() {
+	var username = $('[name="username"]').val();
+	var passwd = $('[name="passwd"]').val();
+	var email = $('[name="email"]').val();
+	var repasswd = $('[name="repasswd"]').val();
+	if (username == "") {
+		$("#errors").html("您还没有输入用户名!");
+		return false;
+	}
+	if (passwd == "") {
+		$("#errors").html("您还没有输入密码!");
+		return false;
+	}
+	if (repasswd == "") {
+		$("#errors").html("您还没有输入确认密码!");
+		return false;
+	}
+	if (email == "") {
+		$("#errors").html("您还没有输入邮箱!");
+		return false;
+	}
+	if (passwd != repasswd){
+		$("#errors").html("您输入的两次密码不一致!");
+		return false;
+	}
+	var emailEx = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+	if (!emailEx.test(email)) {
+		$("#errors").html("您输入邮箱格式不正确!");
+		return false;
+	}
+	var request = $.ajax({
+		type : "POST",
+		url : "register",
+		data : {
+			"email" : email,
+			"username" : username,
+			"passwd" : passwd,
+			"repasswd" : repasswd
+		}
+	});
+	request.done(function(msg) {
+		var result=eval(msg);
+		if(result.success){
+			//alert(location.href.substr(0,location.href.length));
+			//location.href=location.href.substr(0,location.href.length);
+			$("#errors").html(result.msg);
 		}else{
 			$("#errors").html(result.msg);
 		}

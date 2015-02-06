@@ -8,6 +8,8 @@ import com.tuziilm.dxj.common.SecurityUtils;
 import com.tuziilm.dxj.domain.SysUser;
 import com.tuziilm.dxj.service.SysUserService;
 
+import org.apache.catalina.util.MD5Encoder;
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -49,9 +51,9 @@ public class SystemController {
 	public String login(){
  		return "/system/login";
 	}
-	@RequestMapping("/register")
+	@RequestMapping(value="/register",method=RequestMethod.GET)
 	public String register(){
- 		return "/system/register";
+  		return "/system/register";
 	}
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
 	public @ResponseBody String login(@RequestParam("username") String username, @RequestParam("passwd") String passwd, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException{
@@ -73,6 +75,39 @@ public class SystemController {
 			return "({\"success\":false,\"msg\":\"用户不存在或密码不正确！\"})";
 		}
 		LoginContext.doLogin(sysUser, session);
-		return "({\"success\":true,\"msg\":\"登录成功！\"})";
+		return "({\"success\":false,\"msg\":\"登录成功！\"})";
+	}
+	@RequestMapping(value="/register",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
+	public @ResponseBody String register(@RequestParam("username") String username, @RequestParam("passwd") String passwd,@RequestParam("email") String email,@RequestParam("repasswd") String repasswd, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		SysUser sysUser = sysUserService.getByEmail(email);
+		if(sysUser != null){
+			return "({\"success\":false,\"msg\":\"该邮箱已注册！\"})";
+		}
+		SysUser sysUser1 = sysUserService.getByUsername(username);
+		if(sysUser1 != null){
+			return "({\"success\":false,\"msg\":\"该用户名已注册！\"})";
+		}
+		SysUser user = new SysUser();
+		user.setEmail(email);
+		user.setPasswd(passwd);
+		user.setUsername(username);
+		user.setSysUserType((byte)3);
+		user.setStatus((byte)0);
+		user.setPrivilege("3");
+		user.setEmailVaildateCode(SecurityUtils.md5Encode(email, "5adxj"));
+//		sysUserService.save(user);
+		///邮件的内容
+        StringBuffer sb=new StringBuffer("您刚刚注册了最代码，请点击以下链接完成注册：</br>");
+        sb.append("<a href=\"http://localhost:8080/checkEmail?email=");
+        sb.append(email); 
+        sb.append("&validateCode="); 
+        sb.append(user.getEmailVaildateCode());
+        sb.append("\">http://localhost:8080/checkEmail?email="); 
+        sb.append(email);
+        sb.append("&validateCode=");
+        sb.append(user.getEmailVaildateCode());
+        sb.append("</a>");
+        System.out.println(sb);
+		return "({\"success\":true,\"msg\":\"注册成功！\"})";
 	}
 }

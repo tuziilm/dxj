@@ -10,4 +10,5 @@ import com.tuziilm.dxj.domain.SysUser;
 public interface SysUserMapper extends BaseMapper<SysUser>{
 
 	SysUser getByUsername(String username);
+	SysUser getByEmail(String email);
 }
