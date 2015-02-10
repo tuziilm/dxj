@@ -4,11 +4,13 @@
     <resultMap id="BaseResultMap" type="com.tuziilm.dxj.domain.SysUser" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="email_vaildate_code" property="emailVaildateCode" jdbcType="VARCHAR"/>
         <result column="username" property="username" jdbcType="VARCHAR" />
         <result column="passwd" property="passwd" jdbcType="VARCHAR" />
         <result column="sys_user_type" property="sysUserType" jdbcType="TINYINT" />
         <result column="status" property="status" jdbcType="TINYINT" />
         <result column="privilege" property="privilege" jdbcType="VARCHAR" />
+        <result column="ip" property="ip" jdbcType="VARCHAR" />
         <result column="remark" property="remark" jdbcType="VARCHAR" />
         <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
         <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
@@ -27,15 +29,15 @@
         <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
             SELECT LAST_INSERT_ID()
         </selectKey>
-        insert into sys_user (email, username, passwd, sys_user_type,
-        status, privilege, remark,
+        insert into sys_user (email, email_vaildate_code, username, passwd, sys_user_type,
+        status, privilege, ip, remark,
         gmt_create, gmt_modified)
-        values (#{email,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{sysUserType,jdbcType=TINYINT},
-        #{status,jdbcType=TINYINT}, #{privilege,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, now(), now())
+        values (#{email,jdbcType=VARCHAR}, #{emailVaildateCode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, #{sysUserType,jdbcType=TINYINT},
+        #{status,jdbcType=TINYINT}, #{privilege,jdbcType=VARCHAR},#{ip,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, now(), now())
     </insert>
 
     <sql id="Base_Column_List" >
-        id, email, username, passwd, sys_user_type, status, privilege, remark, gmt_create, gmt_modified
+        id, email, email_vaildate_code, username, passwd, sys_user_type, status, privilege, remark, gmt_create, gmt_modified
     </sql>
 
     <select id="selectAll" resultMap="BaseResultMap" >

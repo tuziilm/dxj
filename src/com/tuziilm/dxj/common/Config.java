@@ -14,6 +14,7 @@ import java.util.Set;
  *
  */
 public final class Config {
+	public final static String SECURITLY_KEY = "5adxj";
     private final static Random rand = new Random(System.currentTimeMillis());
 	public final static Properties props=new Properties();
 	static{

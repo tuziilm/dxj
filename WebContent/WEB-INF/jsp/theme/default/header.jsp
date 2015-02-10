@@ -37,7 +37,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="${basePath}">dxj后台</a>
+          <a class="brand" href="${basePath}">吾爱破解</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
               ${dxj:username()}，您好！ <a href="${basePath}logout" class="navbar-link">退出</a>

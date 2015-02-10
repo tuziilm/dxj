@@ -19,10 +19,12 @@ public class SysUser  extends RemarkId {
     private String passwd;
     /** 系统用户类型,0:系统管理员,1:业务员, 2:代理商, 3：客户*/
     private Byte sysUserType;
-    /** 状态,1:正常,0:异常*/
+    /** 状态,1:正常,0:未激活*/
     private Byte status;
     /** 权限值列表,形如：1|2|3*/
     private String privilege;
+    /** ip*/
+    private String ip;
 
     public SystemUserType getSystemUserType(){
     	return SystemUserType.valueOf(sysUserType);
@@ -83,5 +85,12 @@ public class SysUser  extends RemarkId {
 	public void setEmailVaildateCode(String emailVaildateCode) {
 		this.emailVaildateCode = emailVaildateCode;
 	}
-    
+	
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
 }

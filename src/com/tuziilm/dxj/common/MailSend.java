@@ -50,7 +50,8 @@ public class MailSend {
 				MimeMessage message = new MimeMessage(session);
 				// message.setContent("foobar, "application/x-foobar"); // 设置邮件格式
 				message.setSubject(mail_subject); // 设置邮件主题
-				message.setText(mail_body); // 设置邮件正文
+//				message.setText(mail_body); // 设置邮件正文
+				message.setContent(mail_body, "text/html;charset = gbk");  // 设置邮件格式
 				message.setHeader(mail_head_name, mail_head_value); // 设置邮件标题
 				message.setSentDate(new Date()); // 设置邮件发送日期
 				Address address = new InternetAddress(mail_from, personalName);

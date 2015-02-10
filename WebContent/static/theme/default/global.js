@@ -19,10 +19,10 @@ function checkLogin() {
 		}
 	});
 	request.done(function(msg) {
-		alert(msg);
 		var result=eval(msg);
 		if(result.success){
-			location.href=location.href.substr(0,location.href.length-5);
+		//	location.href=location.href.substr(0,location.href.length-5);
+			window.location.replace("/registerSuccess");
 		}else{
 			$("#errors").html(result.msg);
 		}
@@ -76,8 +76,7 @@ function checkRegister() {
 	request.done(function(msg) {
 		var result=eval(msg);
 		if(result.success){
-			//alert(location.href.substr(0,location.href.length));
-			//location.href=location.href.substr(0,location.href.length);
+			location.href=location.href.substr(0,location.href.length);
 			$("#errors").html(result.msg);
 		}else{
 			$("#errors").html(result.msg);
