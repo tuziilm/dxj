@@ -1,6 +1,7 @@
 package com.tuziilm.dxj.mvc;
 
 import com.tuziilm.dxj.common.LoginContext;
+import com.tuziilm.dxj.common.Paginator;
 import com.tuziilm.dxj.common.RemarkForm;
 import com.tuziilm.dxj.common.SecurityUtils;
 import com.tuziilm.dxj.common.SystemUserType;
@@ -51,7 +52,15 @@ public class SysUserController extends CRUDController<SysUser, SysUserService, c
 			return "redirect:/sysuser/info_modify/"+LoginContext.getUid();
 		}
 	}
-	
+	/* (non-Javadoc)
+	 * @see com.tuziilm.dxj.mvc.ListController#preList(int, com.tuziilm.dxj.common.Paginator, com.tuziilm.dxj.common.Query, org.springframework.ui.Model)
+	 */
+	@Override
+	protected boolean preList(int page, Paginator paginator, NameQuery query,
+			Model model) {
+		paginator.setNeedTotal(true);
+		return super.preList(page, paginator, query, model);
+	}
 	@RequestMapping(value="/info_save",method=RequestMethod.POST)
 	public String infoSave(@Valid SysUserForm form,BindingResult errors, Model model) throws NoSuchAlgorithmException{
 		model.addAttribute("errors", errors);
@@ -139,8 +148,9 @@ public class SysUserController extends CRUDController<SysUser, SysUserService, c
             if(LoginContext.isAdmin()&&sut!=SystemUserType.UNKNOWN){
                 sysUser.setSysUserType(sysUserType);
             }
+            String email = LoginContext.getEmail();
             if(passwd!=null&&passwd.length()>0){
-                sysUser.setPasswd(SecurityUtils.md5Encode(passwd, username));
+                sysUser.setPasswd(SecurityUtils.md5Encode(passwd, email));
             }
         }
 

@@ -1,9 +1,9 @@
 //for login
 function checkLogin() {
-	var username = $('[name="username"]').val();
+	var email = $('[name="email"]').val();
 	var passwd = $('[name="passwd"]').val();
-	if (username == "") {
-		$("#errors").html("您还没有输入用户名!");
+	if (email == "") {
+		$("#errors").html("您还没有输入邮箱!");
 		return false;
 	}
 	if (passwd == "") {
@@ -14,15 +14,15 @@ function checkLogin() {
 		type : "POST",
 		url : "login",
 		data : {
-			"username" : username,
+			"email" : email,
 			"passwd" : passwd
 		}
 	});
 	request.done(function(msg) {
 		var result=eval(msg);
 		if(result.success){
-		//	location.href=location.href.substr(0,location.href.length-5);
-			window.location.replace("/registerSuccess");
+			location.href=location.href.substr(0,location.href.length-5);
+		//	window.location.replace("/registerSuccess");
 		}else{
 			$("#errors").html(result.msg);
 		}
@@ -77,6 +77,7 @@ function checkRegister() {
 		var result=eval(msg);
 		if(result.success){
 			location.href=location.href.substr(0,location.href.length);
+			window.location.replace("/registerSuccess");
 			$("#errors").html(result.msg);
 		}else{
 			$("#errors").html(result.msg);

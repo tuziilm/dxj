@@ -50,6 +50,11 @@ public final class LoginContext {
 		return user==null?null:user.uid;
 	}
 	
+	public static String getEmail(){
+		User user = userHolder.get();
+		return user==null?null:user.email;
+	}
+	
 	public static boolean checkLogin(HttpSession session){
 		if(session==null)
 			return false;
@@ -67,6 +72,7 @@ public final class LoginContext {
 			return;
 		User user = new User();
 		user.uid=sysUser.getId();
+		user.email=sysUser.getEmail();
 		user.username=sysUser.getUsername();
 		user.systemUserType=SystemUserType.valueOf(sysUser.getSysUserType());
         user.uuid = session.getId();
@@ -78,6 +84,7 @@ public final class LoginContext {
 	}
 	
 	public final static class User{
+		public String email;
 		public Integer uid;
 		public String username;
 		public SystemUserType systemUserType;

@@ -47,9 +47,11 @@ public class SystemController {
 	private final Cache<String, Integer> incorrectAccessCache=CacheBuilder.newBuilder().maximumSize(MAX_SIZE_CACHE).expireAfterWrite(EXPIRE_TIME_IN_MINUTES, TimeUnit.MINUTES).<String, Integer>build();
 	
 	protected final String REGISTER_SUCCESS;//激活用户成功页面
+	protected final String FIND_PASSWD;//用户找回密码界面
 
 	public SystemController(){
 		REGISTER_SUCCESS=String.format("/%s/register_active", "system");
+		FIND_PASSWD=String.format("/%s/find", "system");
 	}
 	@Resource
 	private SysUserService sysUserService;
@@ -67,27 +69,31 @@ public class SystemController {
 	public String register(){
   		return "/system/register";
 	}
+	@RequestMapping(value="/find",method=RequestMethod.GET)
+	public String find(){
+  		return "/system/find";
+	}
 	@RequestMapping(value="/registerSuccess",method=RequestMethod.GET)
 	public String registerSuccess(){
   		return "/system/registerSuccess";
 	}
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
-	public @ResponseBody String login(@RequestParam("username") String username, @RequestParam("passwd") String passwd, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException{
-		SysUser sysUser = sysUserService.getByUsername(username);
+	public @ResponseBody String login(@RequestParam("email") String email, @RequestParam("passwd") String passwd, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException{
+		SysUser sysUser = sysUserService.getByEmail(email);
 		String ip=RequestUtils.getRemoteIp(request);
-		String ipAccount=ip+"-"+username;
+		String ipAccount=ip+"-"+email;
 		Integer ipRetryCount = incorrectAccessCache.getIfPresent(ip);
 		if(ipRetryCount!=null && ipRetryCount>MAX_TIME_RETRY_PER_IP){
 			return  "({\"success\":false,\"msg\":\"该IP已经被禁用"+EXPIRE_TIME_IN_MINUTES+"分钟！\"})";
 		}
 		Integer ipAccountRetryAccount = incorrectAccessCache.getIfPresent(ipAccount);
 		if(ipAccountRetryAccount!=null && ipAccountRetryAccount>MAX_TIME_RETRY_PER_IP_AND_ACCOUNT){
-			return  "({\"success\":false,\"msg\":\"你登录的"+username+"账号已经被禁用"+EXPIRE_TIME_IN_MINUTES+"分钟！\"})";
+			return  "({\"success\":false,\"msg\":\"你登录的"+email+"账号已经被禁用"+EXPIRE_TIME_IN_MINUTES+"分钟！\"})";
 		}
-		if(sysUser==null || !SecurityUtils.md5Encode(passwd, username).equals(sysUser.getPasswd())){
+		if(sysUser==null || !SecurityUtils.md5Encode(passwd, email).equals(sysUser.getPasswd())){
 			incorrectAccessCache.put(ip, ipRetryCount==null?1:ipRetryCount+1);
 			incorrectAccessCache.put(ipAccount, ipAccountRetryAccount==null?1:ipAccountRetryAccount+1);
-			log.error("{}[{}] login failed!",username,ip);
+			log.error("{}[{}] login failed!",email,ip);
 			return "({\"success\":false,\"msg\":\"用户不存在或密码不正确！\"})";
 		}
 		LoginContext.doLogin(sysUser, session);
@@ -106,7 +112,7 @@ public class SystemController {
 		SysUser user = new SysUser();
 		user.setIp(RequestUtils.getRemoteIp(request));
 		user.setEmail(email);
-		user.setPasswd(SecurityUtils.md5Encode(passwd, username));
+		user.setPasswd(SecurityUtils.md5Encode(passwd, email));
 		user.setUsername(username);
 		user.setSysUserType((byte)3);
 		user.setStatus((byte)0);//未激活状态

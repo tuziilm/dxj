@@ -18,7 +18,7 @@ public class SecurityInterceptor extends HandlerInterceptorAdapter {
 		if(uri.startsWith(contextPath)){
 			uri=uri.substring(contextPath.length());
 		}
-		if(uri.startsWith("/callback") || uri.startsWith("/get/") || uri.startsWith("/user/register") || uri.startsWith("/static") ||uri.startsWith("/public") || uri.startsWith("/login") || uri.startsWith("/register")|| uri.startsWith("/doRegister")){//static resource or login page or callback interface, not authorize
+		if(uri.startsWith("/callback") || uri.startsWith("/get/") || uri.startsWith("/user/register") || uri.startsWith("/static") ||uri.startsWith("/public") || uri.startsWith("/login") || uri.startsWith("/register")|| uri.startsWith("/doRegister")|| uri.startsWith("/find")){//static resource or login page or callback interface, not authorize
 			return true;
 		}else{
 			boolean isLogin=LoginContext.checkLogin(request.getSession());
