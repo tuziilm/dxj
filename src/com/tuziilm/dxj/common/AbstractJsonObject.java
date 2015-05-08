@@ -1,14 +1,11 @@
 package com.tuziilm.dxj.common;
 
-import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 public class AbstractJsonObject implements JsonSupport{
 	private final static Logger log=LoggerFactory.getLogger(AbstractJsonObject.class);

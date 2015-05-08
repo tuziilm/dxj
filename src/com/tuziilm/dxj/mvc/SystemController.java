@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,11 +70,11 @@ public class SystemController {
 	}
 	@RequestMapping(value="/find",method=RequestMethod.GET)
 	public String find(){
-  		return "/system/find";
+  		return "/system/find_passwd";
 	}
 	@RequestMapping(value="/registerSuccess",method=RequestMethod.GET)
 	public String registerSuccess(){
-  		return "/system/registerSuccess";
+  		return "/system/login";
 	}
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
 	public @ResponseBody String login(@RequestParam("email") String email, @RequestParam("passwd") String passwd, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException{

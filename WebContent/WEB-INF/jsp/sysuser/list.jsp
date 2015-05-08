@@ -23,6 +23,7 @@
 							<th></th>
 							<th>用户ID</th>
 							<th>用户名</th>
+							<th>邮箱</th>
 							<th>类型</th>
 							<th>权限</th>
 							<th>备注</th>
@@ -32,6 +33,7 @@
 								<td class="checkbox_td"><input type="checkbox" name="ids" value="${data.id}"/></td>
 								<td>${data.id}</td>
 								<td>${fn:escapeXml(data.username)}</td>
+								<td>${fn:escapeXml(data.email)}</td>
 								<td>${data.systemUserType.name}</td>
 								<td>${data.privilege}</td>
 								<td>${fn:escapeXml(data.remark)}</td>
