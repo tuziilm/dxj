@@ -27,10 +27,11 @@
   <body>
 	<div class="container">
 	<section id="content">
-		<form id="login_form" onsubmit="return checkRegister();" action="${basePath}register" method="post">
+		<form id="find_form" action="${basePath}findPasswd" method="post">
 			<h2>密码找回</h2>
 			<div>请输入你的注册邮箱，系统将发出一封验证邮件，通过验证邮件就可以重新设置密码了</div>
 			<div id="errors"></div>
+			<div id="info" style="color: red">${info}</div>
 			<div>
 				<input type="text" placeholder="邮箱" id="email" name="email"/>
 			</div>

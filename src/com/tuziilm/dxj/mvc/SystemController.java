@@ -2,6 +2,7 @@ package com.tuziilm.dxj.mvc;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
@@ -50,7 +51,7 @@ public class SystemController {
 
 	public SystemController(){
 		REGISTER_SUCCESS=String.format("/%s/register_active", "system");
-		FIND_PASSWD=String.format("/%s/find", "system");
+		FIND_PASSWD=String.format("/%s/find_passwd", "system");
 	}
 	@Resource
 	private SysUserService sysUserService;
@@ -146,6 +147,18 @@ public class SystemController {
 			e.printStackTrace();
 		}
 	}
+	public void sendPasswd(String email,String passwd){
+		StringBuffer sb = new StringBuffer("您的新密码是：");
+		sb.append(passwd).append("，請盡快修改密碼。<a href=\"http://localhost:8080\"/>登陆</a>");
+		try {
+			mailSend.send(email, sb.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public int rand(int min,int max){
+		return (int) Math.floor(Math.max(min, Math.random()*(max+1)));
+	}
 	/**
 	 * 注册激活
 	 * @author tuziilm
@@ -160,7 +173,6 @@ public class SystemController {
         	//验证用户激活状态    
         	if(user.getStatus()==0) {
         		Date now = new Date();
-        		System.out.println(now+"$$$$$$$$$$$$$"+DateUtils.addDays(user.getGmtModified(),2)+"=============邮箱验证请在48小时之内完成"+now.after(DateUtils.addDays(user.getGmtModified(),2)));
         		if(!now.after(DateUtils.addDays(user.getGmtModified(),2))){
         			if(DesUtil.decode(validateCode).equals(user.getEmailVaildateCode())) {    
                         //激活成功， //并更新用户的激活状态，为已激活   
@@ -188,5 +200,21 @@ public class SystemController {
         }
         model.addAttribute("user", user);
         return REGISTER_SUCCESS;
+	}
+	@RequestMapping("/findPasswd")
+	public String findPasswd(@RequestParam("email") String email, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		String[] text = {"abdefghijkmnqrtwy","ABDEFGHIJKLMNQRTWY","23456789"};
+		int location = rand(8,10);
+		String passwd = "";
+		for(int i=0; i<location; ++i){
+			int loc = rand(0, 2);
+			passwd += text[loc].charAt(rand(0, text[loc].length()-1));
+		}
+		SysUser sysUser = sysUserService.getByEmail(email);
+		sysUser.setPasswd(SecurityUtils.md5Encode(passwd, email));
+		sysUserService.update(sysUser);
+		sendPasswd(email, passwd);
+		model.addAttribute("info","密码初始化成功");
+		return FIND_PASSWD;
 	}
 }
