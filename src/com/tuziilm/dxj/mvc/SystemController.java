@@ -2,7 +2,6 @@ package com.tuziilm.dxj.mvc;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
@@ -46,11 +45,11 @@ public class SystemController {
 	private final static long EXPIRE_TIME_IN_MINUTES=10L;
 	private final Cache<String, Integer> incorrectAccessCache=CacheBuilder.newBuilder().maximumSize(MAX_SIZE_CACHE).expireAfterWrite(EXPIRE_TIME_IN_MINUTES, TimeUnit.MINUTES).<String, Integer>build();
 	
-	protected final String REGISTER_SUCCESS;//激活用户成功页面
+	protected final String REGISTER_ACTIVE;//激活用户成功页面
 	protected final String FIND_PASSWD;//用户找回密码界面
 
 	public SystemController(){
-		REGISTER_SUCCESS=String.format("/%s/register_active", "system");
+		REGISTER_ACTIVE=String.format("/%s/register_active", "system");
 		FIND_PASSWD=String.format("/%s/find_passwd", "system");
 	}
 	@Resource
@@ -94,33 +93,13 @@ public class SystemController {
 			incorrectAccessCache.put(ip, ipRetryCount==null?1:ipRetryCount+1);
 			incorrectAccessCache.put(ipAccount, ipAccountRetryAccount==null?1:ipAccountRetryAccount+1);
 			log.error("{}[{}] login failed!",email,ip);
-			return "({\"success\":false,\"msg\":\"用户不存在或密码不正确！\"})";
+			return "({\"success\":false,\"msg\":\"用户不存在或密码正确！\"})";
+		}
+		if(sysUser.getStatus()==0){
+			return "({\"success\":false,\"msg\":\"该邮箱尚未激活！\"})";
 		}
 		LoginContext.doLogin(sysUser, session);
 		return "({\"success\":true,\"msg\":\"登录成功！\"})";
-	}
-	@RequestMapping(value="/register",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
-	public @ResponseBody String register(@RequestParam("username") String username, @RequestParam("passwd") String passwd,@RequestParam("email") String email,@RequestParam("repasswd") String repasswd, HttpSession session, HttpServletRequest request, HttpServletResponse response){
-		SysUser sysUser = sysUserService.getByEmail(email);
-		if(sysUser != null){
-			return "({\"success\":false,\"msg\":\"该邮箱已注册！\"})";
-		}
-		SysUser sysUser1 = sysUserService.getByUsername(username);
-		if(sysUser1 != null){
-			return "({\"success\":false,\"msg\":\"该用户名已注册！\"})";
-		}
-		SysUser user = new SysUser();
-		user.setIp(RequestUtils.getRemoteIp(request));
-		user.setEmail(email);
-		user.setPasswd(SecurityUtils.md5Encode(passwd, email));
-		user.setUsername(username);
-		user.setSysUserType((byte)3);
-		user.setStatus((byte)0);//未激活状态
-		user.setPrivilege("3");
-		user.setEmailVaildateCode(SecurityUtils.md5Encode(email, Config.SECURITLY_KEY));
-		sysUserService.save(user);
-		sendEmail(user);
-		return "({\"success\":true,\"msg\":\"注册成功！\"})";
 	}
 	/**
 	 * 发送邮件
@@ -132,10 +111,10 @@ public class SystemController {
 		///邮件的内容
         StringBuffer sb=new StringBuffer("您刚刚注册了最代码，请点击以下链接完成注册：</br>");
         sb.append("<a href=\"http://localhost:8080/registerActive?email=");
-        sb.append(DesUtil.encode(user.getEmail())); 
-        sb.append("&validateCode="); 
+        sb.append(DesUtil.encode(user.getEmail()));
+        sb.append("&validateCode=");
         sb.append(DesUtil.encode(user.getEmailVaildateCode()));
-        sb.append("\">http://localhost:8080/registerActive?email="); 
+        sb.append("\">http://localhost:8080/registerActive?email=");
         sb.append(DesUtil.encode(user.getEmail()));
         sb.append("&validateCode=");
         sb.append(DesUtil.encode(user.getEmailVaildateCode()));
@@ -149,7 +128,7 @@ public class SystemController {
 	}
 	public void sendPasswd(String email,String passwd){
 		StringBuffer sb = new StringBuffer("您的新密码是：");
-		sb.append(passwd).append("，請盡快修改密碼。<a href=\"http://localhost:8080\"/>登陆</a>");
+		sb.append(passwd).append("，請盡快修改密碼。");
 		try {
 			mailSend.send(email, sb.toString());
 		} catch (Exception e) {
@@ -168,23 +147,23 @@ public class SystemController {
 	@RequestMapping("/registerActive")
 	public String registerActive(@RequestParam("email") String email, @RequestParam("validateCode") String validateCode, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		SysUser user = sysUserService.getByEmail(DesUtil.decode(email));
-        //验证用户是否存在   
+        //验证用户是否存在
         if(user!=null) {
-        	//验证用户激活状态    
+        	//验证用户激活状态
         	if(user.getStatus()==0) {
         		Date now = new Date();
         		if(!now.after(DateUtils.addDays(user.getGmtModified(),2))){
-        			if(DesUtil.decode(validateCode).equals(user.getEmailVaildateCode())) {    
-                        //激活成功， //并更新用户的激活状态，为已激活   
-                         user.setStatus((byte)1);//把状态改为激活  
+        			if(DesUtil.decode(validateCode).equals(user.getEmailVaildateCode())) {
+                        //激活成功， //并更新用户的激活状态，为已激活
+                         user.setStatus((byte)1);//把状态改为激活
                         sysUserService.update(user);
                         LoginContext.doLogin(user, session);
                         model.addAttribute("info", "激活成功！");
                         model.addAttribute("flag", true);
-                    } else {    
+                    } else {
                     	model.addAttribute("info", "激活失败！");
                     	model.addAttribute("flag", false);
-                    }   
+                    }
         		}else{
         			model.addAttribute("info", "验证码已过期！");
         			model.addAttribute("flag", false);
@@ -199,10 +178,14 @@ public class SystemController {
         	model.addAttribute("flag", false);
         }
         model.addAttribute("user", user);
-        return REGISTER_SUCCESS;
+        return REGISTER_ACTIVE;
 	}
-	@RequestMapping("/findPasswd")
-	public String findPasswd(@RequestParam("email") String email, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value = "/findPasswd",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
+	public @ResponseBody String findPasswd(@RequestParam("email") String email, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		SysUser sysUser = sysUserService.getByEmail(email);
+		if(sysUser == null){
+			return "({\"success\":false,\"message\":\"邮箱不存在！\"})";
+		}
 		String[] text = {"abdefghijkmnqrtwy","ABDEFGHIJKLMNQRTWY","23456789"};
 		int location = rand(8,10);
 		String passwd = "";
@@ -210,11 +193,32 @@ public class SystemController {
 			int loc = rand(0, 2);
 			passwd += text[loc].charAt(rand(0, text[loc].length()-1));
 		}
-		SysUser sysUser = sysUserService.getByEmail(email);
 		sysUser.setPasswd(SecurityUtils.md5Encode(passwd, email));
 		sysUserService.update(sysUser);
 		sendPasswd(email, passwd);
-		model.addAttribute("info","密码初始化成功");
-		return FIND_PASSWD;
+		return "({\"success\":true,\"message\":\"成功！\",\"info\":\"密码初始化成功\"})";
+	}
+	@RequestMapping(value="/register",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
+	public @ResponseBody String register(@RequestParam("username") String username, @RequestParam("passwd") String passwd,@RequestParam("email") String email,@RequestParam("repasswd") String repasswd, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		SysUser sysUser = sysUserService.getByEmail(email);
+		if(sysUser != null){
+			return "({\"success\":false,\"message\":\"该邮箱已注册！\"})";
+		}
+		SysUser sysUser1 = sysUserService.getByUsername(username);
+		if(sysUser1 != null){
+			return "({\"success\":false,\"message\":\"该用户名已注册！\"})";
+		}
+		SysUser user = new SysUser();
+		user.setIp(RequestUtils.getRemoteIp(request));
+		user.setEmail(email);
+		user.setPasswd(SecurityUtils.md5Encode(passwd, email));
+		user.setUsername(username);
+		user.setSysUserType((byte)3);
+		user.setStatus((byte)0);//未激活状态
+		user.setPrivilege("3");
+		user.setEmailVaildateCode(SecurityUtils.md5Encode(email, Config.SECURITLY_KEY));
+		sysUserService.save(user);
+		sendEmail(user);
+		return "({\"success\":true,\"message\":\"注册成功,请激活再登陆！\"})";
 	}
 }

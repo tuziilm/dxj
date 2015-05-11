@@ -27,7 +27,7 @@
   <body>
 	<div class="container">
 	<section id="content">
-		<form id="find_form" action="${basePath}findPasswd" method="post">
+		<form id="find_form" action="${basePath}findPasswd" onsubmit="return findPasswd();" method="post">
 			<h2>密码找回</h2>
 			<div>请输入你的注册邮箱，系统将发出一封验证邮件，通过验证邮件就可以重新设置密码了</div>
 			<div id="errors"></div>
@@ -40,7 +40,7 @@
 				 </div> 
 			<div>
 				<!-- <input type="submit" value="Log in" /> -->
-				<input type="submit" value="发送" class="btn btn-primary" id="js-btn-login"/>
+				<input type="submit" value="发送" class="btn btn-primary" id="js-btn-fpw"/>
 				<a href="${basePath}login">登陆</a>
 			</div>
 		</form><!-- form -->

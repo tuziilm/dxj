@@ -10,6 +10,7 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
 import org.bouncycastle.util.encoders.Base64;
+import org.junit.Test;
 
 public class DesUtil {
 	private static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";

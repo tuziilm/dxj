@@ -46,7 +46,7 @@
 				<span class="help-block u-errormessage" id="js-server-helpinfo">&nbsp;</span>			</div> 
 			<div>
 				<!-- <input type="submit" value="Log in" /> -->
-				<input type="submit" value="注册" class="btn btn-primary" id="js-btn-login"/>
+				<input type="submit" value="注册" class="btn btn-primary" id="js-btn-register"/>
 				<a href="${basePath}login">已注册账号</a>
 			</div>
 		</form><!-- form -->

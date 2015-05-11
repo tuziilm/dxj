@@ -22,7 +22,6 @@ function checkLogin() {
 		var result=eval(msg);
 		if(result.success){
 			location.href=location.href.substr(0,location.href.length-5);
-		//	window.location.replace("/registerSuccess");
 		}else{
 			$("#errors").html(result.msg);
 		}
@@ -73,14 +72,47 @@ function checkRegister() {
 			"repasswd" : repasswd
 		}
 	});
-	request.done(function(msg) {
-		var result=eval(msg);
+	request.done(function(data) {
+		var result=eval(data);
 		if(result.success){
-			location.href=location.href.substr(0,location.href.length);
-			window.location.replace("/registerSuccess");
-			$("#errors").html(result.msg);
+			$("#js-btn-register").attr("disabled", "disable");
+			$("#errors").html(result.message);
 		}else{
-			$("#errors").html(result.msg);
+			$("#errors").html(result.message);
+		}
+	});
+	request.fail(function(data) {
+		$("#errors").html("服务器繁忙，请稍后再试!");
+	});
+	return false;
+}
+//for findPasswd
+function findPasswd() {
+	var email = $('[name="email"]').val();
+	if (email == "") {
+		$("#errors").html("您还没有输入邮箱!");
+		return false;
+	}
+	var emailEx = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+	if (!emailEx.test(email)) {
+		$("#errors").html("您输入邮箱格式不正确!");
+		return false;
+	}
+	var request = $.ajax({
+		type : "POST",
+		url : "findPasswd",
+		data : {
+			"email" : email
+		}
+	});
+	request.done(function(data) {
+		var result=eval(data);
+		if(result.success){
+			$("#email").attr("disabled","disabled");
+			$("#js-btn-fpw").attr("disabled","disabled");
+			$("#info").html(result.info);
+		}else{
+			$("#errors").html(result.message);
 		}
 	});
 	request.fail(function(msg) {
