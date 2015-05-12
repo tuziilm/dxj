@@ -112,14 +112,13 @@ public class SystemController {
         StringBuffer sb=new StringBuffer("您刚刚注册了最代码，请点击以下链接完成注册：</br>");
         sb.append("<a href=\"http://localhost:8080/registerActive?email=");
         sb.append(DesUtil.encode(user.getEmail()));
-        sb.append("&validateCode=");
-        sb.append(DesUtil.encode(user.getEmailVaildateCode()));
+		sb.append("&validateCode=");
+        sb.append(user.getEmailVaildateCode());
         sb.append("\">http://localhost:8080/registerActive?email=");
         sb.append(DesUtil.encode(user.getEmail()));
         sb.append("&validateCode=");
         sb.append(DesUtil.encode(user.getEmailVaildateCode()));
         sb.append("</a>");
-        System.out.println(sb);
         try {
 			mailSend.send(user.getEmail(), sb.toString());
 		} catch (Exception e) {
@@ -144,41 +143,43 @@ public class SystemController {
 	 * @return
 	 * 2015年2月10日
 	 */
-	@RequestMapping("/registerActive")
-	public String registerActive(@RequestParam("email") String email, @RequestParam("validateCode") String validateCode, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value="/registerActive",method=RequestMethod.GET)
+	public String registerActive(@RequestParam("email") String email, @RequestParam("validateCode") String validateCode, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(email+"---------------");
+		System.out.println(DesUtil.decode(email));
 		SysUser user = sysUserService.getByEmail(DesUtil.decode(email));
-        //验证用户是否存在
-        if(user!=null) {
-        	//验证用户激活状态
-        	if(user.getStatus()==0) {
-        		Date now = new Date();
-        		if(!now.after(DateUtils.addDays(user.getGmtModified(),2))){
-        			if(DesUtil.decode(validateCode).equals(user.getEmailVaildateCode())) {
-                        //激活成功， //并更新用户的激活状态，为已激活
-                         user.setStatus((byte)1);//把状态改为激活
-                        sysUserService.update(user);
-                        LoginContext.doLogin(user, session);
-                        model.addAttribute("info", "激活成功！");
-                        model.addAttribute("flag", true);
-                    } else {
-                    	model.addAttribute("info", "激活失败！");
-                    	model.addAttribute("flag", false);
-                    }
-        		}else{
-        			model.addAttribute("info", "验证码已过期！");
-        			model.addAttribute("flag", false);
-        		}
-        	}else{
-        		LoginContext.doLogin(user, session);
-        		model.addAttribute("info", "该邮箱已激活！");
-        		model.addAttribute("flag", true);
-        	}
-        }else{
-        	model.addAttribute("info", "该邮箱未注册！");
-        	model.addAttribute("flag", false);
-        }
-        model.addAttribute("user", user);
-        return REGISTER_ACTIVE;
+		//验证用户是否存在
+		if (user != null) {
+			//验证用户激活状态
+			if (user.getStatus() == 0) {
+				Date now = new Date();
+				if (!now.after(DateUtils.addDays(user.getGmtModified(), 2))) {
+					if (DesUtil.decode(validateCode).equals(user.getEmailVaildateCode())) {
+						//激活成功， //并更新用户的激活状态，为已激活
+						user.setStatus((byte) 1);//把状态改为激活
+						sysUserService.update(user);
+						LoginContext.doLogin(user, session);
+						model.addAttribute("info", "激活成功！");
+						model.addAttribute("flag", true);
+					} else {
+						model.addAttribute("info", "激活失败！");
+						model.addAttribute("flag", false);
+					}
+				} else {
+					model.addAttribute("info", "验证码已过期！");
+					model.addAttribute("flag", false);
+				}
+			} else {
+				LoginContext.doLogin(user, session);
+				model.addAttribute("info", "该邮箱已激活！");
+				model.addAttribute("flag", true);
+			}
+		} else {
+			model.addAttribute("info", "该邮箱未注册！");
+			model.addAttribute("flag", false);
+		}
+		model.addAttribute("user", user);
+		return REGISTER_ACTIVE;
 	}
 	@RequestMapping(value = "/findPasswd",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
 	public @ResponseBody String findPasswd(@RequestParam("email") String email, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response){

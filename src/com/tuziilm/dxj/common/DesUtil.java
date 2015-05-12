@@ -10,7 +10,6 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
 import org.bouncycastle.util.encoders.Base64;
-import org.junit.Test;
 
 public class DesUtil {
 	private static final String ALGORITHM_DES = "DES/CBC/PKCS5Padding";
@@ -90,5 +89,11 @@ public class DesUtil {
 			e.printStackTrace();
 		}
 		return "";
+	}
+	public static void main(String args[]){
+		DesUtil des = new DesUtil();
+		String encode = des.encode("1462479893@qq.com");
+		String decode = des.decode(encode);
+		System.out.println(encode + "---" + decode);
 	}
 }
