@@ -28,11 +28,12 @@
 			});
 		</script>
 	</head>
-	<body>
+	<body style="text-align:center;margin:auto;">
+		<div style="height: 10ex"></div>
 		<c:if test="${flag}">
 		<div class="login_step">
 			注册步骤: 1.填写信息 &gt; 2.验证邮箱 &gt;
-			<span class="red_bold">3.注册成功</span>
+			<span style="color: red">3.激活成功</span>
 		</div>
 		<div class="login_success">
 			<div class="login_bj">
@@ -56,7 +57,7 @@
 		<c:if test="${flag==false}">
 			<div class="login_step">
 				注册步骤: 1.填写信息 &gt; 2.验证邮箱 &gt;
-				<span class="red_bold">3.注册失败</span>
+				<span style="color:red">3.注册失败</span>
 			</div>
 			<div class="login_success">
 				<div class="login_bj">

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,17 +108,17 @@ public class SystemController {
 	 * @param user
 	 * 2015年2月10日
 	 */
-	public void sendEmail(SysUser user){
+	public void sendEmail(SysUser user) throws Exception {
 		///邮件的内容
         StringBuffer sb=new StringBuffer("您刚刚注册了最代码，请点击以下链接完成注册：</br>");
         sb.append("<a href=\"http://localhost:8080/registerActive?email=");
-        sb.append(DesUtil.encode(user.getEmail()));
+        sb.append(DesUtil.encrypt(user.getEmail()));
 		sb.append("&validateCode=");
         sb.append(user.getEmailVaildateCode());
         sb.append("\">http://localhost:8080/registerActive?email=");
-        sb.append(DesUtil.encode(user.getEmail()));
+        sb.append(DesUtil.encrypt(user.getEmail()));
         sb.append("&validateCode=");
-        sb.append(DesUtil.encode(user.getEmailVaildateCode()));
+        sb.append(DesUtil.encrypt(user.getEmailVaildateCode()));
         sb.append("</a>");
         try {
 			mailSend.send(user.getEmail(), sb.toString());
@@ -144,17 +145,15 @@ public class SystemController {
 	 * 2015年2月10日
 	 */
 	@RequestMapping(value="/registerActive",method=RequestMethod.GET)
-	public String registerActive(@RequestParam("email") String email, @RequestParam("validateCode") String validateCode, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(email+"---------------");
-		System.out.println(DesUtil.decode(email));
-		SysUser user = sysUserService.getByEmail(DesUtil.decode(email));
+	public String registerActive(@RequestParam("email") String email, @RequestParam("validateCode") String validateCode, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		SysUser user = sysUserService.getByEmail(DesUtil.decrypt(email));
 		//验证用户是否存在
 		if (user != null) {
 			//验证用户激活状态
 			if (user.getStatus() == 0) {
 				Date now = new Date();
 				if (!now.after(DateUtils.addDays(user.getGmtModified(), 2))) {
-					if (DesUtil.decode(validateCode).equals(user.getEmailVaildateCode())) {
+					if (validateCode.equals(user.getEmailVaildateCode())) {
 						//激活成功， //并更新用户的激活状态，为已激活
 						user.setStatus((byte) 1);//把状态改为激活
 						sysUserService.update(user);
@@ -219,7 +218,11 @@ public class SystemController {
 		user.setPrivilege("3");
 		user.setEmailVaildateCode(SecurityUtils.md5Encode(email, Config.SECURITLY_KEY));
 		sysUserService.save(user);
-		sendEmail(user);
+		try {
+			sendEmail(user);
+		} catch (Exception e) {
+			log.error("邮件发送失败");
+		}
 		return "({\"success\":true,\"message\":\"注册成功,请激活再登陆！\"})";
 	}
 }
