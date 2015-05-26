@@ -4,7 +4,7 @@ import org.springframework.util.DigestUtils;
 
 /**
  * 安全相关工具类
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public class SecurityUtils {
@@ -41,9 +41,5 @@ public class SecurityUtils {
 	 */
 	public static String md5Encode(String text){
 		return new String(DigestUtils.md5DigestAsHex(text.getBytes()));
-	}
-	
-	public static void main(String[] args){
-		System.out.println(md5Encode("1234", "calvin"));
 	}
 }

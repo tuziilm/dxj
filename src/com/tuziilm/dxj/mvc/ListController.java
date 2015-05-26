@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * 实现列表的控制器
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public abstract class ListController<T extends Id, S extends BaseService<T>, Q extends Query> {

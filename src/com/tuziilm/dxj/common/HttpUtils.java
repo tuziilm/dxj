@@ -12,7 +12,7 @@ import org.apache.http.params.HttpConnectionParams;
 
 /**
  * Http相关工具类
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public class HttpUtils {

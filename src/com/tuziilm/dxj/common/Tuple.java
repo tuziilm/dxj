@@ -2,7 +2,7 @@ package com.tuziilm.dxj.common;
 
 /**
  * ถþิชื้
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  * @param <T>
  * @param <K>

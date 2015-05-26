@@ -2,7 +2,7 @@ package com.tuziilm.dxj.domain;
 
 /**
  * °üº¬remark, status, id×Ö¶Î
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public class RemarkStatusId extends RemarkId{

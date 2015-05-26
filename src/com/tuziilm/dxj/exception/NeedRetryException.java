@@ -2,7 +2,7 @@ package com.tuziilm.dxj.exception;
 
 /**
  * 需要重试的异常
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public class NeedRetryException extends RuntimeException {

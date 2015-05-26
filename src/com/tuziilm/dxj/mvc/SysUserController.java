@@ -30,7 +30,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * 系统用户操作入口
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 @Controller

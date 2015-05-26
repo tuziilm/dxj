@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 
 /**
  * 容量，支持GB、MB、KB的解释
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public final class Size implements Comparable<Size>{

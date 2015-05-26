@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 日志统计类，用于做页面访问以日志形式进行记录统计
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public final class LogStatistics {

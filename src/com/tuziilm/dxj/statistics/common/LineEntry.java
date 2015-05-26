@@ -1,7 +1,7 @@
 package com.tuziilm.dxj.statistics.common;
 
 /**
- * @author <a href="mailto:pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  */
 public class LineEntry extends ValidLineEntry{
     public String name;

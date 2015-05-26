@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * 系统用户类型
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public enum SystemUserType {

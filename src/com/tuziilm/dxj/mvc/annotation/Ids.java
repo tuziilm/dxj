@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * 标注多个ID的参数，如："12-23-123-1234"
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 @Target(ElementType.PARAMETER)

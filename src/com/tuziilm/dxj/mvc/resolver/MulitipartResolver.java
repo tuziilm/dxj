@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author <a href="mailto:pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  */
 public class MulitipartResolver extends CommonsMultipartResolver{
     private final static int PROGRESS_KEY_EXPIRE_TIME = 12 * 60 * 60;

@@ -4,7 +4,7 @@ import com.tuziilm.dxj.domain.Id;
 
 /**
  * 带有ID的表单基类
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public abstract class IdForm<T extends Id> {

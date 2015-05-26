@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * try func with times
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  */
 public final class TryUtils {
     private final static Logger log=LoggerFactory.getLogger(TryUtils.class);

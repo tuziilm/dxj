@@ -73,10 +73,26 @@ public class SystemController {
 	public String find(){
   		return "/system/find_passwd";
 	}
+
+	/**
+	 * 注册成功
+	 * @return
+	 */
 	@RequestMapping(value="/registerSuccess",method=RequestMethod.GET)
 	public String registerSuccess(){
   		return "/system/login";
 	}
+
+	/**
+	 * 登陆
+	 * @param email
+	 * @param passwd
+	 * @param session
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
 	@RequestMapping(value="/login",method=RequestMethod.POST,produces="application/javascript;charset=UTF-8")
 	public @ResponseBody String login(@RequestParam("email") String email, @RequestParam("passwd") String passwd, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException{
 		SysUser sysUser = sysUserService.getByEmail(email);
@@ -128,7 +144,7 @@ public class SystemController {
 	}
 	public void sendPasswd(String email,String passwd){
 		StringBuffer sb = new StringBuffer("您的新密码是：");
-		sb.append(passwd).append("，請盡快修改密碼。");
+		sb.append(passwd).append("，请尽快修改密码。");
 		try {
 			mailSend.send(email, sb.toString());
 		} catch (Exception e) {
@@ -147,14 +163,12 @@ public class SystemController {
 	@RequestMapping(value="/registerActive",method=RequestMethod.GET)
 	public String registerActive(@RequestParam("email") String email, @RequestParam("validateCode") String validateCode, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		SysUser user = sysUserService.getByEmail(DesUtil.decrypt(email));
-		//验证用户是否存在
 		if (user != null) {
 			//验证用户激活状态
 			if (user.getStatus() == 0) {
 				Date now = new Date();
 				if (!now.after(DateUtils.addDays(user.getGmtModified(), 2))) {
 					if (validateCode.equals(user.getEmailVaildateCode())) {
-						//激活成功， //并更新用户的激活状态，为已激活
 						user.setStatus((byte) 1);//把状态改为激活
 						sysUserService.update(user);
 						LoginContext.doLogin(user, session);

@@ -2,7 +2,7 @@ package com.tuziilm.dxj.exception;
 
 /**
  * Ω‚ Õ∆˜“Ï≥£
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public class ParserException extends Exception {

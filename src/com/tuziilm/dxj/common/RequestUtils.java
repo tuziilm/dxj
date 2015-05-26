@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 请求工具类
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public final class RequestUtils {

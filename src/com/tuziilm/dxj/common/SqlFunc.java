@@ -7,7 +7,7 @@ import java.util.List;
 /**
  *
  * 自定义用于Sql的方法表
- * @author <a href="mailto:pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  */
 public final class SqlFunc {
     private final static SqlFunc func=new SqlFunc();

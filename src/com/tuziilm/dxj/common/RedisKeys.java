@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * Redis Keys
- * @author <a href="mailto:pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  */
 public final class RedisKeys {
     /** 用于记录用户手机发送MT信息的条数, 并以此可以计算出需要发送的MT信息*/

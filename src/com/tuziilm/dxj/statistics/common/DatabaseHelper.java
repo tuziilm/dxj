@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * 数据库访问帮助类
  * 
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  * 
  */
 public final class DatabaseHelper {

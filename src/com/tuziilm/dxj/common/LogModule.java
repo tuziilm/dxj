@@ -3,7 +3,7 @@ package com.tuziilm.dxj.common;
 
 /**
  * 日志统计模块
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public enum LogModule {

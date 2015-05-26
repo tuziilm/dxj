@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * ibatis操作表的Mapper基础接口
- * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
+ * @author <a href="tuziilm@163.com">tuziilm</a>
  *
  */
 public interface BaseMapper<T extends Id> {
