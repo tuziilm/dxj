@@ -30,7 +30,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * 系统用户操作入口
- * @author <a href="tuziilm@163.com">tuziilm</a>
+ * @author <a href="pangkunyi@gmail.com">Calvin Pang</a>
  *
  */
 @Controller
@@ -95,7 +95,7 @@ public class SysUserController extends CRUDController<SysUser, SysUserService, c
 		String passwd = form.getPasswd();
 		boolean isModify=sysUser.getId()!=null && sysUser.getId()>0;
 		if(passwd==null||passwd.length()<1){
-			if(!isModify){
+				if(!isModify){
 				errors.addError(new ObjectError("passwd", "密码不能为空！"));
 				model.addAttribute("errors", errors);
 				return;

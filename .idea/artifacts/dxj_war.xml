@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dxj:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/dxj_war</output-path>
+    <root id="archive" name="dxj_war.war">
+      <element id="artifact" artifact-name="dxj:war exploded" />
+    </root>
+  </artifact>
+</component>

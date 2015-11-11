@@ -31,6 +31,10 @@
 		additivity="false">
 		<appender-ref ref="STATISTIC_FILE" />
 	</logger>
+
+	<logger name="java.sql" level="INFO" />
+
+	<logger name="com.ibatis" level="INFO" />
 	
 	<root level="WARN">
 		<appender-ref ref="MAIN" />
